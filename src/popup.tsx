@@ -1,6 +1,87 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
+
+interface ILetterProps {
+  status: String
+}
+
+interface ILetterState {}
+
+class BoardLetter extends React.Component<ILetterProps, ILetterState> {
+  // constructor(props : ILetterProps) {
+  //   super(props);
+  //   this.state = {
+  //     status: 'unplayed',
+  //   };
+  // }
+  //...code for handling button clicking, updating state, etc.
+   render(){
+        if (this.props.status == 'a') {
+          return(<><td>⬛</td></>);
+        }
+        else if (this.props.status == 'p') {
+          return(<><td>🟨</td></>);
+        }
+        else if (this.props.status == 'c') {
+          return(<><td>🟩</td></>);
+        }
+        else if (this.props.status == 'u') {
+          return(<td>⬜</td>);
+        }
+        // return(<><td>x</td></>);
+   }
+}
+
+interface IRowProps {
+  wordState: String
+}
+
+interface IRowState {}
+
+class BoardRow extends React.Component<IRowProps, IRowState> {
+  //...code for handling button clicking, updating state, etc.
+    render(){
+        return(
+          <>
+              <tr>
+                  <BoardLetter status={this.props.wordState[0]}/>
+                  <BoardLetter status={this.props.wordState[1]}/>
+                  <BoardLetter status={this.props.wordState[2]}/>
+                  <BoardLetter status={this.props.wordState[3]}/>
+                  <BoardLetter status={this.props.wordState[4]}/>
+              </tr>
+          </>
+      );
+    }
+}
+
+interface IBoardProps {
+  boardState: String
+}
+
+interface IBoardState {}
+
+class Board extends React.Component<IBoardProps, IBoardState> {
+//...code for handling button clicking, updating state, etc.
+  render(){
+      return(
+        <>
+            <table>
+              <tbody>
+                <BoardRow wordState={this.props.boardState.substring(0, 5)}/>
+                <BoardRow wordState={this.props.boardState.substring(5, 10)}/>
+                <BoardRow wordState={this.props.boardState.substring(10, 15)}/>
+                <BoardRow wordState={this.props.boardState.substring(15, 20)}/>
+                <BoardRow wordState={this.props.boardState.substring(20, 25)}/>
+              </tbody>
+            </table>
+        </>
+    );
+  }
+}
+
+
 const Popup = () => {
   const [count, setCount] = useState(0);
   const [currentURL, setCurrentURL] = useState<string>();
@@ -33,8 +114,9 @@ const Popup = () => {
   };
 
   return (
-    <>
-      <ul style={{ minWidth: "700px" }}>
+    // <>
+      <Board boardState="pcaaaccaapuuuuuuuuuuuuuuuuuuuu"/>
+      /* <ul style={{ minWidth: "700px" }}>
         <li>Current URL: {currentURL}</li>
         <li>Current Time: {new Date().toLocaleTimeString()}</li>
       </ul>
@@ -44,8 +126,8 @@ const Popup = () => {
       >
         count up
       </button>
-      <button onClick={changeBackground}>change background</button>
-    </>
+      <button onClick={changeBackground}>change background</button> */
+    // </>
   );
 };
 
@@ -55,3 +137,4 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
+
