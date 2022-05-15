@@ -4,3 +4,10 @@ function polling() {
 }
 
 polling();
+
+chrome.runtime.onMessage.addListener((request, message, reply) => {
+  console.log(request.content);
+  if (request.greeting == "hello") reply({ farewell: "goodbye" });
+
+  return true;
+});
